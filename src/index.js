@@ -15,14 +15,17 @@ const refs = {
 const lightbox = new SimpleLightbox('.gallery a');
 
 refs.loadButton.style.display = 'none';
-refs.searchForm.addEventListener('submit', onClickButton);
+refs.searchForm.addEventListener('submit', onSearchFormSubmit);
 refs.loadButton.addEventListener('click', onLoadMoreClick);
 
-function onClickButton(event) {
+function onSearchFormSubmit(event) {
   event.preventDefault();
   window.scrollTo({ top: 0, behavior: 'smooth' });
   refs.currentPage = 1;
   const searchName = refs.searchQuery.value.trim();
+  if(!searchName){
+    return;
+  }
   fetchPhotos(searchName, refs.currentPage);
 }
 
